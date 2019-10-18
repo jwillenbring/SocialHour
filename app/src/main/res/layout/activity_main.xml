@@ -15,9 +15,10 @@
         android:layout_alignParentStart="true"
 
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="-4dp"
-        android:layout_marginLeft="-4dp"
-        android:layout_marginTop="179dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="129dp"
         android:background="@drawable/button_background"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"
@@ -32,10 +33,11 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="103dp"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
 
-        android:layout_marginTop="179dp"
-        android:layout_marginEnd="3dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="129dp"
+        android:layout_marginEnd="6dp"
         android:background="@drawable/button_background"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"
@@ -48,32 +50,17 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="256dp"
-        android:layout_height="71dp"
+        android:layout_width="330dp"
+        android:layout_height="171dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="78dp"
-        android:layout_marginLeft="81dp"
-        android:layout_marginTop="386dp"
-        android:text="Welcome,"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        app:fontFamily="serif" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="246dp"
-        android:layout_height="81dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="78dp"
-        android:layout_marginLeft="78dp"
-        android:layout_marginBottom="235dp"
-        android:text="Name Here"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="81dp"
+        android:layout_marginTop="269dp"
+        android:text="Welcome, Name Here"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         app:fontFamily="serif" />
 
     <TextView
@@ -85,7 +72,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="21dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
         android:layout_marginBottom="145dp"
+        android:layout_toStartOf="@+id/textView4"
+        android:layout_toLeftOf="@+id/textView4"
         android:text="Your Next Event is:"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -111,7 +102,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="22dp"
         android:layout_marginLeft="22dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginRight="51dp"
         android:layout_marginBottom="82dp"
+        android:layout_toStartOf="@+id/textView6"
+        android:layout_toLeftOf="@+id/textView6"
         android:text="Event Name Here"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -140,4 +135,18 @@
         android:layout_marginBottom="26dp"
         android:text="Location: ???"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="75dp"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/button_background"
+        android:text="Log Out"
+        android:textColor="#FFFFFF" />
 </RelativeLayout>

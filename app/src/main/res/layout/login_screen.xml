@@ -5,6 +5,11 @@
     android:background="@drawable/loggin_photo"
     android:orientation="vertical">
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
     <Button
         android:id="@+id/loggin_btn"
