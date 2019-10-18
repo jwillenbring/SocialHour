@@ -62,9 +62,39 @@ public class importCalendar {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
+    public static String getNextEvent() throws IOException, GeneralSecurityException{
+            final NetHttpTransport HTTP_TRANSPORT = new com.google.api.client.http.javanet.NetHttpTransport();
+            Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+
+            // List the next 10 events from the primary calendar.
+            DateTime now = new DateTime(System.currentTimeMillis());
+            Events events = service.events().list("primary")
+                    .setMaxResults(1)
+                    .setTimeMin(now)
+                    .setOrderBy("startTime")
+                    .setSingleEvents(true)
+                    .execute();
+
+        List<Event> items = events.getItems();
+        if (items.isEmpty()) {
+            return "There are no upcoming events";
+        } else {
+            for (Event event : items) {
+                DateTime start = event.getStart().getDateTime();
+                if (start == null) {
+                    start = event.getStart().getDate();
+                }
+                return(event.getSummary() + "  " + start);
+            }
+        }
+        return "There are no upcoming events";
+    }
+
     public static void main(String... args) throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        final NetHttpTransport HTTP_TRANSPORT = new com.google.api.client.http.javanet.NetHttpTransport();
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
@@ -90,5 +120,6 @@ public class importCalendar {
                 System.out.printf("%s (%s)\n", event.getSummary(), start);
             }
         }
+       //System.out.println(getNextEvent());
     }
 }
