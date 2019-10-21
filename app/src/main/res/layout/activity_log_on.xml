@@ -21,6 +21,11 @@
             android:text="Log On"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
 
+        <TextView
+            android:id="@+id/errorMessage"
+            android:layout_width="193dp"
+            android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
