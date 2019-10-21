@@ -22,12 +22,13 @@ import com.google.android.gms.tasks.Task;
 
 public class LogOn extends AppCompatActivity {
 
-    String username, password;
+    static String username, password;
 
     EditText usernameInput;
     EditText passwordInput;
 
     Button logOnButton;
+    Button createAccountButton;
 
     private FirebaseAuth mAuth;
 
@@ -40,8 +41,16 @@ public class LogOn extends AppCompatActivity {
         passwordInput = (EditText) findViewById(R.id.password);
 
         logOnButton = (Button) findViewById(R.id.logOnbutton);
+        createAccountButton = (Button) findViewById(R.id.createAccount);
 
         mAuth = FirebaseAuth.getInstance();
+
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),CreateAccount.class));
+            }
+        });
 
         logOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,9 +63,9 @@ public class LogOn extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    
+
                                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                    
+
                                 } else {
                                     Toast.makeText(LogOn.this, "Login Failed or User Not Available", Toast.LENGTH_SHORT).show();
                                 }
@@ -70,5 +79,4 @@ public class LogOn extends AppCompatActivity {
 
 
 }
-
 
