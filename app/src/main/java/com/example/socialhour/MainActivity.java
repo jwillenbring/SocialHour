@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity{
 
     private FirebaseAuth mAuth;
     Button logOutButton;
+    Button groupsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,13 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(),LogOn.class));
             }
         });
-
+        groupsButton = (Button) findViewById(R.id.groupsButton);
+        groupsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), GroupsPage.class));
+            }
+        });
 
     }
 }

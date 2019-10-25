@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".CreateAccount"></activity>
+        <activity android:name=".CreateGroup" />
+        <activity android:name=".GroupsPage" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LogOn">
             <intent-filter>
