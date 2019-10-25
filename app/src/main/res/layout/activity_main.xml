@@ -8,7 +8,7 @@
     android:background="@drawable/coolcolors">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/events"
 
         android:layout_width="181dp"
         android:layout_height="102dp"
@@ -30,7 +30,7 @@
         android:typeface="monospace" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/groups"
         android:layout_width="189dp"
         android:layout_height="105dp"
         android:layout_alignParentTop="true"
