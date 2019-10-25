@@ -4,30 +4,18 @@ package com.example.socialhour;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-
-<<<<<<< HEAD
-import android.os.Bundle;
-import android.widget.TextView;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class LogOn extends AppCompatActivity {
 
@@ -37,7 +25,6 @@ public class LogOn extends AppCompatActivity {
     static String username, password;
 
     private FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
 
     Button logOnButton;
     Button createAccountButton;
@@ -49,18 +36,18 @@ public class LogOn extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        usernameInput = (EditText) findViewById(R.id.username);
-        passwordInput = (EditText) findViewById(R.id.password);
+        usernameInput = findViewById(R.id.username);
+        passwordInput =  findViewById(R.id.password);
 
-        logOnButton = (Button) findViewById(R.id.logOnbutton);
-        createAccountButton = (Button) findViewById(R.id.createAccount);
+        logOnButton = findViewById(R.id.logOnbutton);
+        createAccountButton = findViewById(R.id.createAccount);
 
         mAuth = FirebaseAuth.getInstance();
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),CreateAccount.class));
+                startActivity(new Intent(getApplicationContext(), CreateAccount.class));
             }
         });
 
@@ -71,13 +58,14 @@ public class LogOn extends AppCompatActivity {
                 password = passwordInput.getText().toString().trim();
 
 
+
                 mAuth.signInWithEmailAndPassword(username, password)
                         .addOnCompleteListener(LogOn.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
 
-                                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                                 } else {
                                     Toast.makeText(LogOn.this, "Login Failed or User Not Available", Toast.LENGTH_SHORT).show();
@@ -88,4 +76,5 @@ public class LogOn extends AppCompatActivity {
             }
         });
 
+    }
 }

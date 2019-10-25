@@ -15,13 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class CreateAccount extends AppCompatActivity {
-    String name, email, password;
+    static String name, email, password;
 
-    EditText nameCreate, emailCreate, passwordCreate;
-    Button submitCreate;
+    private EditText nameCreate, emailCreate, passwordCreate;
+    private Button submitCreate;
 
     private FirebaseAuth mAuth;
 
