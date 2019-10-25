@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
         String name = LogOn.username;
         name = name.replace("@gmail.com", "");
         TextView welcomeText = (TextView) findViewById(R.id.textView);
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity{
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAuth.signOut();
                 startActivity(new Intent(getApplicationContext(),LogOn.class));
             }
         });
