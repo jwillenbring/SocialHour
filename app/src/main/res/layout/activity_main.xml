@@ -8,7 +8,8 @@
     android:background="@drawable/coolcolors">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/events"
+
 
         android:layout_width="181dp"
         android:layout_height="102dp"
@@ -30,7 +31,8 @@
         android:typeface="monospace" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/groups"
+
         android:layout_width="189dp"
         android:layout_height="105dp"
         android:layout_alignParentTop="true"
@@ -137,7 +139,11 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <Button
+<<<<<<< HEAD
         android:id="@+id/signOut"
+=======
+        android:id="@+id/logOutButton"
+>>>>>>> upstream/master
         android:layout_width="75dp"
         android:layout_height="42dp"
         android:layout_alignParentTop="true"
