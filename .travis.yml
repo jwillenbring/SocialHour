@@ -9,6 +9,9 @@ language: java
 # https://docs.travis-ci.com/user/reference/trusty/#jvm-clojure-groovy-java-scala-images
 jdk:
  - openjdk8
+ 
+ script:
+  - ./gradlew build --scan -s
 
 # Each job in Travis CI has several steps:
 # https://docs.travis-ci.com/user/job-lifecycle/
