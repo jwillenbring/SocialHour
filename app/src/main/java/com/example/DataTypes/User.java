@@ -13,6 +13,16 @@ public class User {
         this.setFirstName(firstName);
     }
 
+    public User(String email, String password, String firstName, String[] groups, String [] pendingGroups){
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setGroups(groups);
+        this.setPendingGroups(pendingGroups);
+    }
+
+
+
 
     public String getEmail() {
         return email;
