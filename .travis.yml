@@ -2,13 +2,13 @@
 # https://docs.travis-ci.com/user/languages/java/
 
 # This enables the 'defaults' to test java applications:
-language: java
+language: android
 
 # We can specify a list of JDKs to be used for testing
 # A list of available JDKs in Trusty can be seed in:
 # https://docs.travis-ci.com/user/reference/trusty/#jvm-clojure-groovy-java-scala-images
 jdk:
- - openjdk12
+ - openjdk8
  
  script:
   - ./gradlew build --scan -s
