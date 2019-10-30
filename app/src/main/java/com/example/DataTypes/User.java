@@ -7,7 +7,7 @@ public class User {
     private String [] groups;
     private String [] pendingGroups;
 
-    public User(String email, String password, String firstName){
+    public User(String firstName, String email, String password){
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);

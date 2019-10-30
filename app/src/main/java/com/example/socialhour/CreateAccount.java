@@ -12,11 +12,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.DataTypes.User;
+import com.example.services.DBConnection;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.*;
 
 
 public class CreateAccount extends AppCompatActivity {
@@ -26,7 +26,7 @@ public class CreateAccount extends AppCompatActivity {
     Button submitCreate;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference db;
+    private DBConnection dbc;
     private User newUser;
 
     @Override
@@ -39,7 +39,7 @@ public class CreateAccount extends AppCompatActivity {
         passwordCreate = findViewById(R.id.passwordBox);
 
         submitCreate = findViewById(R.id.submitButton);
-
+        dbc = new DBConnection();
         mAuth = FirebaseAuth.getInstance();
 
         submitCreate.setOnClickListener(new View.OnClickListener() {
@@ -48,21 +48,13 @@ public class CreateAccount extends AppCompatActivity {
                 name = nameCreate.getText().toString().trim();
                 email = emailCreate.getText().toString().trim();
                 password = passwordCreate.getText().toString().trim();
-                int indexOfAt = email.indexOf("@");
-                final String uniqueId = email.substring(0, indexOfAt).replace('.', '-');
                 newUser = new User(name, email, password);
-                db = FirebaseDatabase.getInstance().getReference();
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(CreateAccount.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    /*db.child("Users").child(mAuth.getCurrentUser().getUid()).child("name").setValue(name);
-                                    db.child("Users").child(mAuth.getCurrentUser().getUid()).child("email").setValue(email);
-                                    db.child("Users").child(mAuth.getCurrentUser().getUid()).child("password").setValue(password);*/
-                                    db.child("Users").child(uniqueId).child("name").setValue(name);
-                                    db.child("Users").child(uniqueId).child("email").setValue(email);
-                                    db.child("Users").child(uniqueId).child("password").setValue(password);
+                                    dbc.addUserToDB(newUser);
                                     startActivity(new Intent(getApplicationContext(), LogOn.class));
 
                                 } else {
