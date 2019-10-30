@@ -4,7 +4,7 @@
 # This enables the 'defaults' to test java applications:
 language: android
 jdk: oraclejdk7
-
+ 
 android:
   components:
     - build-tools-19.0.1
