@@ -3,7 +3,9 @@
 
 # This enables the 'defaults' to test java applications:
 language: android
-jdk: oraclejdk7
+jdk:
+ - openjdk8
+
 
 android:
   components:
