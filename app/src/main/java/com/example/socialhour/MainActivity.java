@@ -38,13 +38,6 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(),LogOn.class));
             }
         });
-        groupsButton = (Button) findViewById(R.id.groupsButton);
-        groupsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), GroupsPage.class));
-            }
-        });
 
     }
 }
