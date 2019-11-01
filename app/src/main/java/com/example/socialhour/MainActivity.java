@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity{
 
     private FirebaseAuth mAuth;
     Button logOutButton;
+    Button groupsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(),LogOn.class));
             }
         });
-
 
     }
 }

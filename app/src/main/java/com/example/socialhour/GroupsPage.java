@@ -17,11 +17,19 @@ public class GroupsPage extends AppCompatActivity {
         setContentView(R.layout.activity_groups_page);
 
         createGroup = (Button) findViewById(R.id.createGroup);
+        viewPending = (Button) findViewById(R.id.pendingGroups);
 
         createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),CreateGroup.class));
+            }
+        });
+
+        viewPending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), PendingGroups.class));
             }
         });
     }
