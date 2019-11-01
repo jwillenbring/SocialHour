@@ -2,13 +2,21 @@
 # https://docs.travis-ci.com/user/languages/java/
 
 # This enables the 'defaults' to test java applications:
-language: java
-
-# We can specify a list of JDKs to be used for testing
-# A list of available JDKs in Trusty can be seed in:
-# https://docs.travis-ci.com/user/reference/trusty/#jvm-clojure-groovy-java-scala-images
+language: android
 jdk:
  - openjdk8
+ 
+
+android:
+  components:
+    - build-tools-19.0.1
+ 
+ script:
+  - ./gradlew build connectedCheck
+  
+lintOptions: {
+  abortOnError false
+}
 
 # Each job in Travis CI has several steps:
 # https://docs.travis-ci.com/user/job-lifecycle/
@@ -20,3 +28,5 @@ jdk:
 # If a build is successful, the code is submitted for coverage analysis
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+licenses:
+  - '.+'
