@@ -27,6 +27,6 @@ script: ./gradlew build connectedCheck
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 licenses:
-  yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-29"
-  yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.2"
+  - yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-29"
+  - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.2"
 
