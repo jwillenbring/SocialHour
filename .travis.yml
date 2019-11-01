@@ -3,7 +3,7 @@
 
 # This enables the 'defaults' to test java applications:
 language: android
-jdk: OpenJDK-10
+jdk: openjdk10
 sudo: false
 
 android:
