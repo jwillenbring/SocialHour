@@ -2,18 +2,29 @@
 # https://docs.travis-ci.com/user/languages/java/
 
 # This enables the 'defaults' to test java applications:
-language:android
+language: android
+dist: trusty
  
 
-android:{
- components:build-tools-19.0.1
-}
+language: android
+jdk: oraclejdk8
+sudo: false
+
+android:
+  components:
+    - platform-tools
+    - tools
+    - build-tools-24.0.2
+    - android-22
+    - android-24
+    - sys-img-armeabi-v7a-android-22
+    - extra-android-m2repository
  
- script:./gradlew build connectedCheck
+script: ./gradlew build connectedCheck
   
-lintOptions:{
-  abortOnError false
-}
+# lintOptions:{
+  #abortOnError false
+#}
 
 # Each job in Travis CI has several steps:
 # https://docs.travis-ci.com/user/job-lifecycle/
