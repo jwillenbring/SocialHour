@@ -5,6 +5,7 @@
 language: android
 jdk: openjdk10
 sudo: false
+dist: trusty
 
 android:
   components: # Cookbooks version: https://github.com/travis-ci/travis-cookbooks/tree/9c6cd11
