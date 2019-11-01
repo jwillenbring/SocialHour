@@ -3,14 +3,20 @@
 
 # This enables the 'defaults' to test java applications:
 language: android
-jdk: oraclejdk7
+jdk:
+ - openjdk8
  
+
 android:
   components:
     - build-tools-19.0.1
  
  script:
   - ./gradlew build connectedCheck
+  
+lintOptions: {
+  abortOnError false
+}
 
 # Each job in Travis CI has several steps:
 # https://docs.travis-ci.com/user/job-lifecycle/
