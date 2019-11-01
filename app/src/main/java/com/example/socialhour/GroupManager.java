@@ -3,6 +3,7 @@ package com.example.socialhour;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +18,8 @@ public class GroupManager extends AppCompatActivity {
     private Button accept, refuse;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
 
 
 
@@ -28,7 +30,8 @@ public class GroupManager extends AppCompatActivity {
         /*accept = findViewById(R.id.btnName);
         refuse = findViewById(R.id.btnName);
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,10 +41,10 @@ public class GroupManager extends AppCompatActivity {
             }
         });
 
-        refuse.setOnClickListener(new View,OnClickListener() {
+        refuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View w) {
-                removeFromPending();
+                removeFromPending(groupToRemove);
             }
         });
          */
@@ -49,17 +52,22 @@ public class GroupManager extends AppCompatActivity {
 
     }
 
-    public void moveFromPendingToGroups(Array groups){
-
+    public void moveFromPendingToGroups(String group){
+        databaseReference.child("Users").child("groups").child("name").setValue(group);
+        databaseReference.child("Users").child("pendingGroups").child(group).removeValue();
 
     }
 
     public void addUserToGroup(String username){
-        mDatabase.child("Groups").child("members").setValue(username);
+        databaseReference.child("Groups").child("members").setValue(username);
+        Toast.makeText(this, "User successfully added to Group", Toast.LENGTH_LONG)
+                .show();
     }
 
     public void removeFromPending(String groupToRemove){
-        mDatabase.child("Users").child("pendingGroups").child(groupToRemove).removeValue();
+        databaseReference.child("Users").child("pendingGroups").child(groupToRemove).removeValue();
+        Toast.makeText(this, "Group removed from the list of pending groups",
+                Toast.LENGTH_LONG).show();
     }
 
 }
