@@ -13,6 +13,10 @@ android:
  
  script:
   - ./gradlew build connectedCheck
+  
+lintOptions {
+  abortOnError false
+}
 
 # Each job in Travis CI has several steps:
 # https://docs.travis-ci.com/user/job-lifecycle/
