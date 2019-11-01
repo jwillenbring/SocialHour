@@ -12,14 +12,16 @@ android:
     - sys-img-armeabi-v7a-google_apis-29
     - build-tools-29.0.2 # Match build-tools version used in build.gradle
     - android-29
- 
-script: 
-  - echo "y" | android update sdk -a --no-ui --filter sys-img-armeabi-v7a-android-29,sys-img-x86_64-android-29
-  - echo "n" | android create avd --name myandroid29 -t "android-29"
-  - echo no | android create avd --force -n test -t "android-29" --abi "default/x86_64"
+    
+before_script: 
+  - echo "y" | android update sdk -a --no-ui --filter sys-img-armeabi-v7a-android-22,sys-img-x86_64-android-22
+  - echo "n" | android create avd --name myandroid22 -t "android-22"
+  - echo no | android create avd --force -n test -t "android-22" --abi "default/x86_64"
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
+
+script: 
   - ./gradlew build connectedCheck
 
 # Each job in Travis CI has several steps:
