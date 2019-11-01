@@ -17,4 +17,9 @@ public class DBConnection {
         final String uniqueId = newUser.getEmail().substring(0, indexOfAt).replace('.', '-');
         db.child("Users").child(uniqueId).setValue(newUser);
     }
+
+    /*public User getUser(String email){
+        String userKey = User.getUserKey(email);
+        return new User(db.child("Users").child(userKey).child("firstName"), email, db.child("Users").child(userKey).child("password").toString());
+    }*/
 }

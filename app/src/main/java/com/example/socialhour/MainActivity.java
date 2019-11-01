@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.DataTypes.User;
+import com.example.services.DBConnection;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity{
     Button groups, events;
 
     private FirebaseAuth mAuth;
+    private DBConnection dbc;
     Button logOutButton;
     Button groupsButton;
 
@@ -28,11 +31,12 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbc = new DBConnection();
         mAuth = FirebaseAuth.getInstance();
-        String name = LogOn.username;
-        name = name.replace("@gmail.com", "");
+        //User newUser = dbc.getUser(LogOn.username);
+        String welcome = User.getUserKey(LogOn.username);
         TextView welcomeText = (TextView) findViewById(R.id.textView);
-        welcomeText.setText("Welcome, " + name);
+        welcomeText.setText("Welcome, " + welcome);
 
         groups = (Button) findViewById(R.id.groups);
         events = (Button) findViewById(R.id.events);

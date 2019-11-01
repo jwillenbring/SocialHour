@@ -63,4 +63,10 @@ public class User {
     public void setPendingGroups(String[] pendingGroups) {
         this.pendingGroups = pendingGroups;
     }
+
+
+    public static String getUserKey(String email){
+        int indexOfAt = email.indexOf("@");
+        return email.substring(0, indexOfAt).replace('.', '-');
+    }
 }
