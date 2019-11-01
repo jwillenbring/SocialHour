@@ -8,6 +8,7 @@ sudo: false
 
 android:
   components: # Cookbooks version: https://github.com/travis-ci/travis-cookbooks/tree/9c6cd11
+    - armeabi-v7a-android-24
     - build-tools-29.0.2 # Match build-tools version used in build.gradle
     - android-29
 
