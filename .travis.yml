@@ -9,11 +9,12 @@ sudo: false
 android:
   components: # Cookbooks version: https://github.com/travis-ci/travis-cookbooks/tree/9c6cd11
     - sys-img-armeabi-v7a-android-29
+    - sys-img-armeabi-v7a-google_apis-29
     - build-tools-29.0.2 # Match build-tools version used in build.gradle
     - android-29
 
 before_script:
-  - echo no | android create avd --force -n test -t android-29 --abi sys-img-armeabi-v7a-android-29
+  - echo no | android create avd --force -n test -t android-29 --abi google_apis/$ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
