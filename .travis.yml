@@ -5,7 +5,7 @@
 language: android
 jdk:
  - openjdk8
-
+ 
 
 android:
   components:
@@ -13,6 +13,10 @@ android:
  
  script:
   - ./gradlew build connectedCheck
+  
+lintOptions: {
+  abortOnError false
+}
 
 # Each job in Travis CI has several steps:
 # https://docs.travis-ci.com/user/job-lifecycle/
