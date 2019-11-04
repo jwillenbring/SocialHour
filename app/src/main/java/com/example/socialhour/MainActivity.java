@@ -3,7 +3,10 @@ package com.example.socialhour;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -11,27 +14,51 @@ import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.services.ImportCalendar;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.Events;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
 
-public class MainActivity extends AppCompatActivity{
+
+public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 112;
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     Button groups, events;
 
     private FirebaseAuth mAuth;
     Button logOutButton;
+
+    private static final String APPLICATION_NAME = "Social Hour";
+    private final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +76,7 @@ public class MainActivity extends AppCompatActivity{
         groups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),GroupsPage.class));
+                startActivity(new Intent(getApplicationContext(), GroupsPage.class));
             }
         });
 
@@ -58,25 +85,33 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),LogOn.class));
+                startActivity(new Intent(getApplicationContext(), LogOn.class));
             }
         });
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder()
                 .requestEmail()
-                .requestScopes(new Scope(CalendarScopes.CALENDAR_READONLY))
+                .requestScopes(new Scope(CalendarScopes.CALENDAR))
                 .build();
 
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null)
-        {
-            System.out.println(account.getEmail());
-        }
-        else {
+
+        if (account == null) {
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         }
+
+        GoogleAccountCredential credential =
+                GoogleAccountCredential.usingOAuth2(
+                        this,
+                        Collections.singleton(CalendarScopes.CALENDAR));
+        credential.setSelectedAccount(account.getAccount());
+
+
+        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+        new ImportCalendar().execute(service);
     }
 
     @Override
@@ -96,9 +131,7 @@ public class MainActivity extends AppCompatActivity{
         {
             try {
                 GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
                 // Signed in successfully, show authenticated UI.
-                System.out.println("successful sign in " + account);
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -106,5 +139,6 @@ public class MainActivity extends AppCompatActivity{
                 System.out.println("Something went wrong");
             }
         }
+
     }
 }
