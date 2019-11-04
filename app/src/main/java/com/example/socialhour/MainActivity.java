@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity{
     Button groups, events;
 
     private FirebaseAuth mAuth;
+    static String name;
     Button logOutButton;
     Button groupsButton;
 
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        String name = LogOn.username;
+        //String name = LogOn.username;
+        name = LogOn.username;
         name = name.replace("@gmail.com", "");
         //String name = CreateAccount.name;
         TextView welcomeText = (TextView) findViewById(R.id.textView);
