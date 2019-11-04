@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class GroupsPage extends AppCompatActivity {
 
-    Button createGroup, viewPending;
+    Button createGroup, viewPending, group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +18,8 @@ public class GroupsPage extends AppCompatActivity {
 
         createGroup = (Button) findViewById(R.id.createGroup);
         viewPending = (Button) findViewById(R.id.pendingGroups);
+        group = (Button) findViewById(R.id.groupName);
+
 
         createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +32,12 @@ public class GroupsPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), PendingGroups.class));
+            }
+        });
+        group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SingleGroupPage.class));
             }
         });
     }
