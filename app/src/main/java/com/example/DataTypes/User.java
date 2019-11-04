@@ -1,5 +1,6 @@
 package com.example.DataTypes;
 
+
 import java.util.ArrayList;
 
 public class User {
@@ -9,13 +10,13 @@ public class User {
     private ArrayList<String> groups;
     private ArrayList<String> pendingGroups;
 
-    public User(String email, String password, String firstName){
+    public User(String firstName, String email, String password){
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);
     }
 
-    public User(String email, String password, String firstName, String[] groups, String [] pendingGroups){
+    public User(String email, String password, String firstName, ArrayList<String> groups, ArrayList<String> pendingGroups){
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);
@@ -64,5 +65,11 @@ public class User {
 
     public void setPendingGroups(ArrayList<String> pendingGroups) {
         this.pendingGroups = pendingGroups;
+    }
+
+
+    public static String getUserKey(String email){
+        int indexOfAt = email.indexOf("@");
+        return email.substring(0, indexOfAt).replace('.', '-');
     }
 }
