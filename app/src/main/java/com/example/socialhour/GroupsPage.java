@@ -19,7 +19,7 @@ public class GroupsPage extends AppCompatActivity {
         createGroup = (Button) findViewById(R.id.createGroup);
         viewPending = (Button) findViewById(R.id.pendingGroups);
         group = (Button) findViewById(R.id.groupName);
-
+        System.out.println("NAME: " + MainActivity.getCurrentUser().getFirstName());
 
         createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
