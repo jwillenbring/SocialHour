@@ -15,7 +15,8 @@ import static android.content.ContentValues.TAG;
 public class DBConnection {
 
     private DatabaseReference db;
-    User currentUser;
+    public User currentUser;
+    private DataSnapshot userDataSnapshot;
 
     public DBConnection(){
         this.db = FirebaseDatabase.getInstance().getReference();
@@ -28,17 +29,18 @@ public class DBConnection {
     }
 
     public void getUser(String email){
-        String userKey = User.getUserKey(email);
-        currentUser = new User("RANDOM", "Test@gmail.com", "12345678");
+        final String userKey = User.getUserKey(email);
         ValueEventListener readDB = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                currentUser = new User(dataSnapshot.child("firstName").getValue().toString(), dataSnapshot.child("email").getValue().toString(), dataSnapshot.child("password").getValue().toString());
+                setUserDataSnapshot(dataSnapshot);
+                DataSnapshot userSnap = dataSnapshot.child(userKey);
+                currentUser = new User(userSnap.child("firstName").getValue().toString(), userSnap.child("email").getValue().toString(), userSnap.child("password").getValue().toString());
                 System.out.println("name : " + currentUser.getFirstName());
                 System.out.println("email : " + currentUser.getEmail());
                 System.out.println("password : " + currentUser.getPassword());
-                MainActivity.setCurrentUser(currentUser);
+                setCurrentUser(currentUser);
 
             }
 
@@ -49,15 +51,29 @@ public class DBConnection {
                 // ...
             }
         };
-        db.child("Users/" + userKey).addListenerForSingleValueEvent(readDB);
-        db.child("Users/" + userKey + "/active").setValue(true);
-        /*if(currentUser != null){
-            System.out.print("name : " + currentUser.getFirstName());
-        }
-        else{
-            System.out.println("Fuck firebase");
-        }*/
+        db.child("Users/").addValueEventListener(readDB);
     }
 
+    public void setCurrentUser (User u){
+        currentUser = u;
+        printData();
+    }
 
+    public void printData(){
+        System.out.println("name : " + currentUser.getFirstName());
+        System.out.println("email : " + currentUser.getEmail());
+        System.out.println("password : " + currentUser.getPassword());
+    }
+
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
+    public void setUserDataSnapshot (DataSnapshot d){
+        userDataSnapshot = d;
+    }
+
+    public DataSnapshot getUserDataSnapshot(){
+        return userDataSnapshot;
+    }
 }

@@ -33,10 +33,9 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbc = new DBConnection();
+        dbc = LogOn.dbc;
         mAuth = FirebaseAuth.getInstance();
         //User newUser = dbc.getUser(LogOn.username);
-        dbc.getUser(LogOn.username);
         String welcome = User.getUserKey(LogOn.username);
         TextView welcomeText = (TextView) findViewById(R.id.textView);
         welcomeText.setText("Welcome, " + welcome);
@@ -62,19 +61,5 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    public static void setCurrentUser (User u){
-        currentUser = u;
-    }
 
-    public static User getCurrentUser(){
-        return currentUser;
-    }
-
-    public static void setUserDataSnapshot (DataSnapshot d){
-        userDataSnapshot = d;
-    }
-
-    public static DataSnapshot getUserDataSnapshot(){
-        return userDataSnapshot;
-    }
 }
