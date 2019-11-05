@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.services.DBConnection;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +27,7 @@ public class LogOn extends AppCompatActivity {
 
     EditText usernameInput;
     EditText passwordInput;
-
+    public static final DBConnection dbc = new DBConnection();
     Button logOnButton;
     Button createAccountButton;
 
@@ -44,7 +45,6 @@ public class LogOn extends AppCompatActivity {
         createAccountButton = (Button) findViewById(R.id.createAccount);
 
         mAuth = FirebaseAuth.getInstance();
-
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +63,7 @@ public class LogOn extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
+                                    dbc.getUser(username);
                                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
                                 } else {

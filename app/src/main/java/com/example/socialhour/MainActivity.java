@@ -14,6 +14,7 @@ import com.example.DataTypes.User;
 import com.example.services.DBConnection;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 
 import org.w3c.dom.Text;
 
@@ -21,7 +22,8 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity{
 
     Button groups, events;
-
+    public static User currentUser;
+    public static DataSnapshot userDataSnapshot;
     private FirebaseAuth mAuth;
     private DBConnection dbc;
     Button logOutButton;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbc = new DBConnection();
+        dbc = LogOn.dbc;
         mAuth = FirebaseAuth.getInstance();
         //User newUser = dbc.getUser(LogOn.username);
         String welcome = User.getUserKey(LogOn.username);
@@ -58,4 +60,6 @@ public class MainActivity extends AppCompatActivity{
         });
 
     }
+
+
 }
