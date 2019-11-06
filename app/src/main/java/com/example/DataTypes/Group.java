@@ -1,5 +1,6 @@
 package com.example.DataTypes;
 
+
 import java.util.ArrayList;
 
 public class Group {
@@ -8,6 +9,15 @@ public class Group {
     private String id;
     private ArrayList<String> events = new ArrayList<>();
     private ArrayList<String> members = new ArrayList<>();
+
+    public Group(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public void addUser(String userID){
+        members.add(userID);
+    }
 
     public String getName() {
         return name;

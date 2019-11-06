@@ -1,5 +1,6 @@
 package com.example.socialhour;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -43,7 +44,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 
-import org.w3c.dom.Text;
+import com.google.firebase.database.DataSnapshot;
 
 import java.io.IOException;
 import java.util.Collections;

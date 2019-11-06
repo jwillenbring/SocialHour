@@ -1,54 +1,53 @@
 package com.example.socialhour;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.services.DBConnection;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 
-
 public class LogOn extends AppCompatActivity {
 
+    //private String username, password;
+    private EditText usernameInput;
+    private EditText passwordInput;
     static String username, password;
 
-    EditText usernameInput;
-    EditText passwordInput;
+    private FirebaseAuth mAuth;
     public static final DBConnection dbc = new DBConnection();
     Button logOnButton;
     Button createAccountButton;
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_on);
 
-        usernameInput = (EditText) findViewById(R.id.username);
-        passwordInput = (EditText) findViewById(R.id.password);
+        mAuth = FirebaseAuth.getInstance();
 
-        logOnButton = (Button) findViewById(R.id.logOnbutton);
-        createAccountButton = (Button) findViewById(R.id.createAccount);
+        usernameInput = findViewById(R.id.username);
+        passwordInput =  findViewById(R.id.password);
+
+        logOnButton = findViewById(R.id.logOnbutton);
+        createAccountButton = findViewById(R.id.createAccount);
 
         mAuth = FirebaseAuth.getInstance();
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),CreateAccount.class));
+                startActivity(new Intent(getApplicationContext(), CreateAccount.class));
             }
         });
 
@@ -57,6 +56,8 @@ public class LogOn extends AppCompatActivity {
             public void onClick(View v) {
                 username = usernameInput.getText().toString().trim();
                 password = passwordInput.getText().toString().trim();
+
+
 
                 mAuth.signInWithEmailAndPassword(username, password)
                         .addOnCompleteListener(LogOn.this, new OnCompleteListener<AuthResult>() {
@@ -70,13 +71,10 @@ public class LogOn extends AppCompatActivity {
                                     Toast.makeText(LogOn.this, "Login Failed or User Not Available", Toast.LENGTH_SHORT).show();
                                 }
 
-                                // ...
                             }
                         });
             }
         });
+
     }
-
-
 }
-

@@ -20,10 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class CreateAccount extends AppCompatActivity {
-    String name, email, password;
+    static String name, email, password;
 
-    EditText nameCreate, emailCreate, passwordCreate;
-    Button submitCreate;
+    private EditText nameCreate, emailCreate, passwordCreate;
+    private Button submitCreate;
 
     private FirebaseAuth mAuth;
     private DBConnection dbc;
