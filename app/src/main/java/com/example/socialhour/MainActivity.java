@@ -120,6 +120,13 @@ public class MainActivity extends AppCompatActivity {
         {
             try {
                 GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+                GoogleAccountCredential credential =
+                        GoogleAccountCredential.usingOAuth2(
+                                this,
+                                Collections.singleton(CalendarScopes.CALENDAR));
+                credential.setSelectedAccount(account.getAccount());
+
+                new ImportCalendar().execute(credential);
                 // Signed in successfully, show authenticated UI.
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.
