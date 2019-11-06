@@ -1,5 +1,7 @@
 package com.example.DataTypes;
 
+import com.google.api.services.calendar.model.Event;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -9,6 +11,7 @@ public class User {
     private String firstName;
     private ArrayList<String> groups;
     private ArrayList<String> pendingGroups;
+    private ArrayList<Event> eventsList;
 
     public User(String firstName, String email, String password){
         this.setEmail(email);
@@ -67,6 +70,9 @@ public class User {
         this.pendingGroups = pendingGroups;
     }
 
+    public void setEventsList(ArrayList<Event> eventsList) { this.eventsList = eventsList; }
+
+    public ArrayList<Event> getEventsList() { return eventsList; }
 
     public static String getUserKey(String email){
         int indexOfAt = email.indexOf("@");
