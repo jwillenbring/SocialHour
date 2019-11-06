@@ -26,6 +26,9 @@ public class LogOn extends AppCompatActivity {
     static String username, password;
 
     private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
+    EditText usernameInput;
+    EditText passwordInput;
     public static final DBConnection dbc = new DBConnection();
     Button logOnButton;
     Button createAccountButton;
