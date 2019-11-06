@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:hint="Name" />
 
         <EditText
             android:id="@+id/emailBox"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textWebEmailAddress"
-            android:text="Email" />
+            android:hint="Email" />
 
         <EditText
             android:id="@+id/passwordBox"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textWebPassword"
-            android:text="Password" />
+            android:hint="Password" />
 
         <Button
             android:id="@+id/submitButton"

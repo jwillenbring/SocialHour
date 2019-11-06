@@ -11,10 +11,13 @@ import android.widget.Button;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.DataTypes.User;
+import com.example.services.DBConnection;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 
 public class CreateAccount extends AppCompatActivity {
     String name, email, password;
@@ -23,6 +26,8 @@ public class CreateAccount extends AppCompatActivity {
     Button submitCreate;
 
     private FirebaseAuth mAuth;
+    private DBConnection dbc;
+    private User newUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,7 @@ public class CreateAccount extends AppCompatActivity {
         passwordCreate = findViewById(R.id.passwordBox);
 
         submitCreate = findViewById(R.id.submitButton);
-
+        dbc = new DBConnection();
         mAuth = FirebaseAuth.getInstance();
 
         submitCreate.setOnClickListener(new View.OnClickListener() {
@@ -43,13 +48,13 @@ public class CreateAccount extends AppCompatActivity {
                 name = nameCreate.getText().toString().trim();
                 email = emailCreate.getText().toString().trim();
                 password = passwordCreate.getText().toString().trim();
-
+                newUser = new User(name, email, password);
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(CreateAccount.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
+                                    dbc.addUserToDB(newUser);
                                     startActivity(new Intent(getApplicationContext(), LogOn.class));
 
                                 } else {
