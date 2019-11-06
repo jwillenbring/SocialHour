@@ -1,17 +1,33 @@
 package com.example.DataTypes;
 
+import com.google.api.services.calendar.model.Event;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class User {
     private String email;
     private String password;
     private String firstName;
-    private String [] groups;
-    private String [] pendingGroups;
+    private ArrayList<String> groups;
+    private ArrayList<String> pendingGroups;
+    private ArrayList<Event> eventsList;
 
-    public User(String email, String password, String firstName){
+    public User(String firstName, String email, String password){
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);
     }
+
+    public User(String email, String password, String firstName, ArrayList<String> groups, ArrayList<String> pendingGroups){
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setGroups(groups);
+        this.setPendingGroups(pendingGroups);
+    }
+
+
 
 
     public String getEmail() {
@@ -38,19 +54,28 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String[] getGroups() {
+    public ArrayList<String> getGroups() {
         return groups;
     }
 
-    public void setGroups(String[] groups) {
+    public void setGroups(ArrayList<String> groups) {
         this.groups = groups;
     }
 
-    public String[] getPendingGroups() {
+    public ArrayList<String> getPendingGroups() {
         return pendingGroups;
     }
 
-    public void setPendingGroups(String[] pendingGroups) {
+    public void setPendingGroups(ArrayList<String> pendingGroups) {
         this.pendingGroups = pendingGroups;
+    }
+
+    public void setEventsList(ArrayList<Event> eventsList) { this.eventsList = eventsList; }
+
+    public ArrayList<Event> getEventsList() { return eventsList; }
+
+    public static String getUserKey(String email){
+        int indexOfAt = email.indexOf("@");
+        return email.substring(0, indexOfAt).replace('.', '-');
     }
 }

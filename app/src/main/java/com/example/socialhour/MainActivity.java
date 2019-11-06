@@ -36,8 +36,11 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
+import com.example.DataTypes.User;
+import com.example.services.DBConnection;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -51,24 +54,21 @@ import java.util.logging.Level;
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 112;
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     Button groups, events;
 
     private FirebaseAuth mAuth;
+    private DBConnection dbc;
     Button logOutButton;
-
-    private static final String APPLICATION_NAME = "Social Hour";
-    private final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    Button groupsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
-        String name = LogOn.username;
-        name = name.replace("@gmail.com", "");
+        //User newUser = dbc.getUser(LogOn.username);
+        String welcome = User.getUserKey(LogOn.username);
         TextView welcomeText = (TextView) findViewById(R.id.textView);
-        welcomeText.setText("Welcome, " + name);
+        welcomeText.setText("Welcome, " + welcome);
 
         groups = (Button) findViewById(R.id.groups);
         events = (Button) findViewById(R.id.events);
@@ -107,11 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         Collections.singleton(CalendarScopes.CALENDAR));
         credential.setSelectedAccount(account.getAccount());
 
-
-        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-        new ImportCalendar().execute(service);
+        new ImportCalendar().execute(credential);
     }
 
     @Override
