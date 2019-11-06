@@ -99,17 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        GoogleAccountCredential credential =
-                GoogleAccountCredential.usingOAuth2(
-                        this,
-                        Collections.singleton(CalendarScopes.CALENDAR));
-        credential.setSelectedAccount(account.getAccount());
-
-        new ImportCalendar().execute(credential);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
