@@ -14,14 +14,26 @@ public class User {
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);
+        this.groups = new ArrayList<String>();
+        this.pendingGroups = new ArrayList<String>();
     }
 
-    public User(String email, String password, String firstName, ArrayList<String> groups, ArrayList<String> pendingGroups){
+    public User(String frstName, String email, String password, ArrayList<String> groups, ArrayList<String> pendingGroups){
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);
-        this.setGroups(groups);
-        this.setPendingGroups(pendingGroups);
+        if (groups != null){
+            this.setGroups(groups);
+        }
+        else {
+            this.groups = new ArrayList<String>();
+        }
+        if (pendingGroups != null) {
+            this.setPendingGroups(pendingGroups);
+        }
+        else {
+            this.pendingGroups = new ArrayList<String>();
+        }
     }
 
 
@@ -33,6 +45,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void addGroup(String groupID){
+        groups.add(groupID);
     }
 
     public String getPassword() {
