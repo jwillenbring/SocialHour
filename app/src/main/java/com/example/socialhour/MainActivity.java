@@ -98,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-
         GoogleAccountCredential credential =
                 GoogleAccountCredential.usingOAuth2(
                         this,
