@@ -1,40 +1,29 @@
-# Travis CI Java documentation can be found in:
-# https://docs.travis-ci.com/user/languages/java/
-
-# This enables the 'defaults' to test java applications:
 language: android
-jdk: openjdk10
-sudo: false
-dist: trusty
-
+jdk: oraclejdk8
+env:
+ global:
+    - ANDROID_API_LEVEL=25
+    - ANDROID_BUILD_TOOLS_VERSION=25.0.2
 android:
-  components: # Cookbooks version: https://github.com/travis-ci/travis-cookbooks/tree/9c6cd11
-    - sys-img-x86-android-26
-    - build-tools-29.0.2 # Match build-tools version used in build.gradle
-    - android-26
-    
-#before_script: 
-#  - echo "y" | android update sdk -a --no-ui --filter sys-img-armeabi-v7a-android-22,sys-img-x86_64-android-22
-#  - echo "n" | android create avd --name myandroid22 -t "android-22" --abi "default/armeabi-v7a"
-#  - echo no | android create avd --force -n test -t "android-22" --abi "default/armeabi-v7a"
-#  - emulator -avd test -no-skin -no-audio -no-window &
-#  - android-wait-for-emulator
-#  - adb shell input keyevent 82 &
-
-script: 
-  - ./gradlew build connectedCheck
-
-# Each job in Travis CI has several steps:
-# https://docs.travis-ci.com/user/job-lifecycle/
-# The 'language: java' directive sets up sane defaults to test common java applications
-# We use the defaults for installing dependencies, compiling and testing maven applications
-# In our case it will be 'mvn install' followed by 'mvn test'
-
-# This is to enable CodeCov's coverage
-# If a build is successful, the code is submitted for coverage analysis
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-licenses:
-  - yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-29"
-  - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.2"
-  - yes | sdkmanager --licenses
+ licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+ components:
+    - tools
+    - platform-tools
+    # The BuildTools version used by your project
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    # The SDK version used to compile your project
+    - android-$ANDROID_API_LEVEL
+    # Additional components
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-$ANDROID_API_LEVEL
+before_script:
+    # Prepare pre-accepted licenses to not be promted at installation
+    - mkdir -p "$ANDROID_HOME/licenses"
+    - cp ./google-licenses/* "$ANDROID_HOME/licenses/"
+script:
+    - ./gradlew build check
